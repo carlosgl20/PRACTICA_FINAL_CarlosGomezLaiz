@@ -1,0 +1,80 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalles del Empleado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+	  <body class="bg-dark text-light">
+    <div class="container">
+        <h1 class="mt-5 mb-4">Detalles del Empleado</h1>
+        <table class="table table-dark table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td th:text="${empleado!= null}?${empleado.id}"></td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td th:text="${empleado!= null}?${empleado.nombre}"></td>
+                </tr>
+                <tr>
+                    <th>Edad</th>
+                    <td th:text="${empleado!= null}?${empleado.edad}"></td>
+                </tr>
+                <tr>
+                    <th>Rol</th>
+                    <td th:text="${empleado!= null}?${empleado.rol}"></td>
+                </tr>
+                <tr>
+                    <th>Horario</th>
+                    <td th:text="${empleado!= null}?${empleado.horario}"></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="col col-md-3 d-flex align-items-left">	
+			<button type="button" class="btn btn-outline-secondary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+			<a th:href="@{~/empleados}" class="btn btn-outline-secondary text-white">Volver a todos los empleados</a>
+	    </div>
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">Editar Empleado</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editarEmpleadoForm" th:action="@{/empleado/save/(id=${empleado.id})}" method="post">
+              <div class="mb-3">
+                <label for="nombre" class="form-label text-black">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" th:value="${empleado.nombre}" required>
+              </div>
+              <div class="mb-3">
+                <label for="edad" class="form-label text-black">Edad:</label>
+                <input type="number" class="form-control" id="precio" th:value="${empleado.edad}" required>
+              </div>
+              <div class="mb-3">
+                <label for="rol" class="form-label text-black">Rol:</label>
+                <input type="text" class="form-control" id="rol" th:value="${empleado.rol}" required>
+              </div>
+              <div class="mb-3">
+                <label for="horario" class="form-label text-black">Horario:</label>
+                <input type="text" class="form-control" id="horario" th:value="${empleado.horario}" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    </div>
+  </body>
+</html>

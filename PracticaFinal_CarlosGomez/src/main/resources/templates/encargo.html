@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Encargo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+  <body class="bg-dark text-light">
+   
+    <div class="container text-center">
+	  <div class="row align-items-center">
+	    <div class="col col-md-1">
+	    </div>
+	    <div class="col col-md-10">
+			<!-- Esto te muestra la tabla vacía cuando borres todas las relaciones -->
+			  <p class="mt-4" th:text="${#lists.size(encargaciones)} +' pedidos a realizar'">Mostrar</p> 
+			  <p th:if="${#lists.isEmpty(encargaciones)}">La tabla está vacía</p>
+	          <table class="table table-dark table-striped table-bordered" th:unless="${#lists.isEmpty(encargaciones)}">
+			    <thead>
+			    <tr>
+			        <th>Pedido</th>
+			        <th>Empleado</th>
+			        <th>Fecha</th>
+			        <th>-</th>
+			    </tr>
+			    </thead>
+			    <tbody>
+				    <tr th:each="encargo : ${encargaciones}">
+						<td th:text="${encargo.pedido.id}+' [ID] '+${encargo.pedido.nombre}"></td>
+						<td th:text="${encargo.empleado.id}+' [ID] '+${encargo.empleado.nombre}"></td>
+						<td th:text="${encargo.fecha}"></td>
+						<td><a th:href="@{~/encargo/del/{idPedido}/{idEmpleado}(idPedido=${encargo.pedido.id}, idEmpleado=${encargo.empleado.id})}">Eliminar</a></td>
+				    </tr>
+				</tbody>
+			</table>
+	    </div> 
+	    <div class="col col-md-1">
+	      <p><a class="btn btn-outline-secondary text-white" th:href="@{~/encargo/add}">+</a></p>
+	    </div>
+	  </div>
+	</div>
+    </body>
+</html>

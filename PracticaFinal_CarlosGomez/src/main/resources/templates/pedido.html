@@ -1,0 +1,94 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Detalles del Pedido</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  </head>
+	  <body class="bg-dark text-light">
+    <div class="container">
+        <h1 class="mt-5 mb-4">Detalles del Pedido</h1>
+        <table class="table table-dark table-striped table-bordered">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td th:text="${pedido!= null}?${pedido.id}"></td>
+                </tr>
+                <tr>
+                    <th>Artículo</th>
+                    <td th:text="${pedido!= null}?${pedido.nombre}"></td>
+                </tr>
+                <tr>
+                    <th>Precio</th>
+                    <td th:text="${pedido!= null}?${pedido.precio}"></td>
+                </tr>
+                <tr>
+                    <th>Compañía</th>
+                    <td th:text="${pedido!= null}?${pedido.compañia}"></td>
+                </tr>
+                <tr>
+                    <th>ID Cliente</th>
+                    <td th:text="${pedido!= null}?${pedido.cliente.id}"></td>
+                </tr>
+                <tr>
+                    <th>Nombre</th>
+                    <td th:text="${pedido!= null}?${pedido.cliente.nombre}"></td>
+                </tr>
+                
+            </tbody>
+        </table>
+        
+        <div class="col col-md-3 d-flex align-items-left">	
+			<button type="button" class="btn btn-outline-secondary text-white" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button>
+			<a th:href="@{~/pedidos}" class="btn btn-outline-secondary text-white">Volver a todos los pedidos</a>
+	    </div>
+
+        <!--<div class="col col-md-7 d-flex justify-content-between align-items-left">
+			<a class="btn btn-outline-secondary text-white btn-sm" th:href="@{~/pedido/edit/{id}(id=${pedido.id})}">Editar pedido</a>
+	    </div>-->
+
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title text-black" id="exampleModalLabel">Editar Pedido</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="editarPedidoForm" th:action="@{/pedido/save/edit/{id}(id=${pedido.id})}" method="post">
+              <div class="mb-3">
+                <label for="nombre" class="form-label text-black">Artículo:</label>
+                <input type="text" class="form-control" id="nombre" th:value="${pedido.nombre}" required>
+              </div>
+              <div class="mb-3">
+                <label for="precio" class="form-label text-black">Precio:</label>
+                <input type="number" class="form-control" id="precio" th:value="${pedido.precio}" required>
+              </div>
+              <div class="mb-3">
+                <label for="compañia" class="form-label text-black">Compañía:</label>
+                <input type="text" class="form-control" id="compañia" th:value="${pedido.compañia}" required>
+              </div>
+              <div class="mb-3">
+                <label for="cliente" class="form-label text-black">Cliente:</label>
+                <input class="form-control" th:field="*{cliente}">
+        			<option th:each="c : ${cliente}" th:value="${c.id}" th:text="${c.nombre}">OPCIÓN</option>
+    			</input>
+              </div>
+              <button type="submit" class="btn btn-primary">Guardar cambios</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    
+    
+</div>
+
+  </body>
+</html>
